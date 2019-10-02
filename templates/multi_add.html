@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>this multi_add</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ formset.management_form }}   {# 不加这一行，报错: ValidationError at /multi_add/: ManagementForm data is missing or has been tampered with #}
+<table border="1">
+    <thead>
+    <tr>
+        <th>标题</th>
+        <th>URL</th>
+        <th>NAME</th>
+        <th>菜单</th>
+        <th>父权限</th>
+    </tr>
+    </thead>
+    <tbody>
+
+{% for form in formset %}
+    <tr>
+    {% for field in form %}
+
+        <td><p>{{ field }}</p> <span style="color:red;">{{ field.errors }}</span></td>
+
+    {% endfor %}
+    </tr>
+{% endfor %}
+</tbody>
+</table>
+    <input type="submit" value="提交">
+</form>
+</body>
+</html>
